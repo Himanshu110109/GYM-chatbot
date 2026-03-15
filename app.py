@@ -4,6 +4,8 @@ from pydantic import BaseModel
 from langchain_core.messages import HumanMessage, AIMessage
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
+import uvicorn
 
 app = FastAPI()
 
@@ -35,3 +37,7 @@ def chat(query: Query):
     chat_history.append(AIMessage(content=response["answer"]))
 
     return {"answer": response["answer"]}
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port, log_level="debug")
