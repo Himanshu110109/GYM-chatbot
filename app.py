@@ -21,6 +21,10 @@ chat_history = []
 class Query(BaseModel):
     question: str
 
+@app.get("/")
+def root():
+    return {"message": "Gym AI Chatbot API is running"}
+
 @app.post("/chat")
 def chat(query: Query):
     response = chain.invoke({
