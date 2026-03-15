@@ -1,0 +1,46 @@
+from langchain_classic.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import WebBaseLoader
+from bs4 import SoupStrainer
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+links = [
+    "https://www.anytimefitness.com/",
+    "https://www.anytimefitness.com/training",
+    "https://www.anytimefitness.com/blog",
+    "https://www.anytimefitness.com/membership",
+    "https://franchise.anytimefitness.com/"
+]
+
+documents = []
+for link in links:
+    loader = WebBaseLoader(
+    web_path=(link,),
+    bs_kwargs={
+        "parse_only": SoupStrainer([
+            "main",
+            "article",
+            "section",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "p",
+            "li"
+        ])
+    }
+)
+    data = loader.load()[0]
+    documents.append(data)
+
+splitted = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=150).split_documents(documents)
+embedder = HuggingFaceEmbeddings(model_name="all-MiniLM-l6-v2")
+
+vectorstore = Chroma.from_documents(
+    documents=splitted,
+    embedding=embedder,
+    persist_directory="./chroma_db"
+)
