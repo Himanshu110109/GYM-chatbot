@@ -18,7 +18,7 @@ export default function ChatbotUI() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/chat", {
+      const res = await fetch("https://gym-chatbot-d1do.onrender.com/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
