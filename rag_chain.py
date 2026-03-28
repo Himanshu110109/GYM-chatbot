@@ -14,7 +14,7 @@ os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 def get_rag_chain():
 
     embedder = GoogleGenerativeAIEmbeddings(
-        model="models/text-embedding-004"
+        model="text-embedding-004"
     )
 
     vectorstore = Chroma(
