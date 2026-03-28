@@ -6,12 +6,16 @@ from langchain_classic.chains.retrieval import create_retrieval_chain
 from langchain_classic.chains.history_aware_retriever import create_history_aware_retriever
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chat_models import init_chat_model
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 load_dotenv()
+
+os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 
 def get_rag_chain():
 
-    embedder = HuggingFaceEmbeddings(model_name="all-MiniLM-l6-v2")
+    embedder = GoogleGenerativeAIEmbeddings(
+        model="models/text-embedding-004"
+    )
 
     vectorstore = Chroma(
         persist_directory="./chroma_db",
