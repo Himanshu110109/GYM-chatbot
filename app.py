@@ -17,7 +17,12 @@ app.add_middleware(
 
 chain = None
 chat_history = []
-
+def get_chain():
+    global chain
+    if chain is None:
+        print("Initializing RAG chain...")
+        chain = get_rag_chain()
+    return chain
 
 class Query(BaseModel):
     question: str
@@ -29,7 +34,7 @@ def root():
 
 @app.post("/chat")
 def chat(query: Query):
-    chain = get_rag_chain()
+    chain = get_chain()
     response = chain.invoke({
         "input": query.question,
         "chat_history": chat_history
