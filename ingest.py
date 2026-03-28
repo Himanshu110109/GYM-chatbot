@@ -1,11 +1,13 @@
 from langchain_classic.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
 from bs4 import SoupStrainer
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import Chroma
 import os
 from dotenv import load_dotenv
 load_dotenv()
+
+os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 
 links = [
     "https://www.anytimefitness.com/",
@@ -33,14 +35,18 @@ for link in links:
         ])
     }
 )
-    data = loader.load()[0]
+    data = loader.load()
     documents.append(data)
 
 splitted = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=150).split_documents(documents)
-embedder = HuggingFaceEmbeddings(model_name="all-MiniLM-l6-v2")
+embedder = GoogleGenerativeAIEmbeddings(
+    model="models/text-embedding-004"
+)
 
 vectorstore = Chroma.from_documents(
     documents=splitted,
     embedding=embedder,
     persist_directory="./chroma_db"
 )
+
+vectorstore.persist()
