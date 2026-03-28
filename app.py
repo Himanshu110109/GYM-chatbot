@@ -46,8 +46,3 @@ def chat(query: Query):
     chat_history.append(AIMessage(content=response["answer"]))
 
     return {"answer": response["answer"]}
-
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
