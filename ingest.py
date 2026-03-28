@@ -40,7 +40,7 @@ for link in links:
 
 splitted = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=150).split_documents(documents)
 embedder = GoogleGenerativeAIEmbeddings(
-    model="models/embedding-001"
+    model="embedding-001"
 )
 
 vectorstore = Chroma.from_documents(
