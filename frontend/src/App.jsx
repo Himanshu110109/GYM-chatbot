@@ -18,7 +18,7 @@ export default function ChatbotUI() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://b548-2409-40d2-69-4faf-2656-f67a-c175-db5d.ngrok-free.app/chat", {
+      const res = await fetch("https://gym-chatbot-uu0h.onrender.com//chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
