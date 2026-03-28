@@ -34,8 +34,9 @@ def root():
 
 @app.post("/chat")
 def chat(query: Query):
-    chain = get_chain()
-    response = chain.invoke({
+    current_chain = get_chain()
+
+    response = current_chain.invoke({
         "input": query.question,
         "chat_history": chat_history
     })
