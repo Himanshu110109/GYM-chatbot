@@ -35,14 +35,19 @@ def root():
 
 @app.post("/chat")
 def chat(query: Query):
-    current_chain = get_chain()
+    try:
+        current_chain = get_chain()
 
-    response = current_chain.invoke({
-        "input": query.question,
-        "chat_history": chat_history
-    })
+        response = current_chain.invoke({
+            "input": query.question,
+            "chat_history": chat_history
+        })
 
-    chat_history.append(HumanMessage(content=query.question))
-    chat_history.append(AIMessage(content=response["answer"]))
+        chat_history.append(HumanMessage(content=query.question))
+        chat_history.append(AIMessage(content=response["answer"]))
 
-    return {"answer": response["answer"]}
+        return {"answer": response["answer"]}
+
+    except Exception as e:
+        print("FULL ERROR:", repr(e))  # logs in Render
+        raise HTTPException(status_code=500, detail=str(e))
