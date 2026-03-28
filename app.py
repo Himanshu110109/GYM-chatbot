@@ -29,6 +29,7 @@ class Query(BaseModel):
 
 @app.get("/")
 def root():
+    print("app started")
     return "server is running"
 
 
