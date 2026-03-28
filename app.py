@@ -49,5 +49,5 @@ def chat(query: Query):
         return {"answer": response["answer"]}
 
     except Exception as e:
-        print("FULL ERROR:", repr(e))  # logs in Render
+        print("FULL ERROR:", repr(e))
         raise HTTPException(status_code=500, detail=str(e))
