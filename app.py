@@ -22,13 +22,6 @@ chat_history = []
 class Query(BaseModel):
     question: str
 
-
-@app.on_event("startup")
-def load_chain():
-    global chain
-    chain = get_rag_chain()
-
-
 @app.get("/")
 def root():
     return "server is running"
@@ -36,6 +29,7 @@ def root():
 
 @app.post("/chat")
 def chat(query: Query):
+    chain = get_rag_chain()
     response = chain.invoke({
         "input": query.question,
         "chat_history": chat_history
