@@ -35,7 +35,7 @@ for link in links:
         ])
     }
 )
-    data = loader.load()
+    data = loader.load()[0]
     documents.append(data)
 
 splitted = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=150).split_documents(documents)
