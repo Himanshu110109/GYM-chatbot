@@ -1,11 +1,10 @@
 fastapi
-uvicorn
+uvicorn[standard]
 langchain
 langchain-community
 langchain-core
 chromadb
-sentence-transformers
-python-dotenv
-pydantic
 langchain-google-genai
+pydantic
+python-dotenv
 bs4
