@@ -4,7 +4,6 @@ from pydantic import BaseModel
 from langchain_core.messages import HumanMessage, AIMessage
 from fastapi.middleware.cors import CORSMiddleware
 import os
-import uvicorn
 
 app = FastAPI()
 
@@ -32,7 +31,7 @@ def load_chain():
 
 @app.get("/")
 def root():
-    return {"message": "Gym AI Chatbot API is running"}
+    return "server is running"
 
 
 @app.post("/chat")
