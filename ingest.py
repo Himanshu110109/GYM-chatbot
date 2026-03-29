@@ -4,6 +4,7 @@ from bs4 import SoupStrainer
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import Chroma
 import os
+from langchain.embeddings import HuggingFaceEmbeddings
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -39,8 +40,8 @@ for link in links:
     documents.append(data)
 
 splitted = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=150).split_documents(documents)
-embedder = GoogleGenerativeAIEmbeddings(
-    model="gemini-embedding-001"
+embedder = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/paraphrase-MiniLM-L3-v2"
 )
 
 vectorstore = Chroma.from_documents(
