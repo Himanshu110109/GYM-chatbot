@@ -7,7 +7,7 @@ from langchain_classic.chains.history_aware_retriever import create_history_awar
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chat_models import init_chat_model
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 load_dotenv()
 
 def get_rag_chain():
