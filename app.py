@@ -7,6 +7,8 @@ import os
 
 app = FastAPI()
 print("app starting")
+print("DB exists:", os.path.exists("./chroma_db"))
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
