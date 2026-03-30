@@ -6,15 +6,14 @@ from langchain_classic.chains.retrieval import create_retrieval_chain
 from langchain_classic.chains.history_aware_retriever import create_history_aware_retriever
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chat_models import init_chat_model
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_google_genai import GoogleGenerativeAIEmbeddings
+# from langchain_huggingface import HuggingFaceEmbeddings
+from embeddings import CloudFlareEmbeddings
 load_dotenv()
 
 def get_rag_chain():
 
-    embedder = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/paraphrase-MiniLM-L3-v2"
-    )
+    embedder = CloudFlareEmbeddings()
 
     vectorstore = Chroma(
         persist_directory="./chroma_db",
