@@ -1,11 +1,12 @@
 from langchain_classic.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
 from bs4 import SoupStrainer
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+# from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import Chroma
 import os
-from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_huggingface import HuggingFaceEmbeddings
 from dotenv import load_dotenv
+from embeddigns import CloudFlareEmbeddings
 load_dotenv()
 
 os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
@@ -40,9 +41,7 @@ for link in links:
     documents.append(data)
 
 splitted = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=150).split_documents(documents)
-embedder = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/paraphrase-MiniLM-L3-v2"
-)
+embedder = CloudFlareEmbeddings()
 
 vectorstore = Chroma.from_documents(
     documents=splitted,
