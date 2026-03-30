@@ -6,7 +6,7 @@ from langchain_community.vectorstores import Chroma
 import os
 # from langchain_huggingface import HuggingFaceEmbeddings
 from dotenv import load_dotenv
-from embeddigns import CloudFlareEmbeddings
+from embeddings import CloudFlareEmbeddings
 load_dotenv()
 
 os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
